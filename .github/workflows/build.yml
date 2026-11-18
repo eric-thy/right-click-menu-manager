@@ -1,0 +1,38 @@
+# Build
+
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        shell: powershell
+        run: |
+          $PSVersionTable
+          & "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /?
+
+      - name: Build
+        shell: powershell
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
+
+      - name: Upload unsigned build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RightClickMenuManager-unsigned
+          path: dist/右键菜单管理器.exe
+          if-no-files-found: error

@@ -1,0 +1,20 @@
+# Binaries and local build output
+dist/
+obj/
+*.exe
+*.msi
+*.msix
+*.zip
+
+# Local documentation/screenshots that may contain machine-specific data
+docs/
+
+# Visual Studio / user files
+.vs/
+*.user
+*.suo
+*.cache
+
+# Temporary files
+*.tmp
+*.log
